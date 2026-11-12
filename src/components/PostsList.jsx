@@ -1,17 +1,30 @@
+import { useState } from "react";
 import NewPost from "./NewPost";
 import Post from "./Post";
-import classes from './PostsList.module.css';
+import classes from "./PostsList.module.css";
 
 const PostsList = () => {
-    return (
-        <>
-            <NewPost />
-            <ul className={classes.posts}>
-                <Post author='John' body='React.js is awesome' />
-                <Post author='Doe' body='Check out the full course!' />
-            </ul>
-        </>
-    );
+  const [enteredBody, setEnteredBody] = useState();
+  const [enteredAuthor, setEnteredAuthor] = useState();
+
+  function changeAuthorHandler(event) {
+    setEnteredAuthor(event.target.value);
+  }
+  function changeBodyHandler(event) {
+    setEnteredBody(event.target.value);
+  }
+
+  return (
+    <>
+      <NewPost
+        onBodyChange={changeBodyHandler}
+        onAuthorChange={changeAuthorHandler}
+      />
+      <ul className={classes.posts}>
+        <Post author={enteredAuthor} body={enteredBody} />
+      </ul>
+    </>
+  );
 };
 
 export default PostsList;
